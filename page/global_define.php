@@ -1,0 +1,1 @@
+<?php	DEFINE('PATH_INDEX','index.php');	DEFINE('HOST','AX-AD');	DEFINE('PATH_INDEX_PAGE','index.php?page=true&home=true');	//-----------Define Root LIBRARY DIrectory --------------------------------------//	DEFINE('_ROOT_LIB_','view/');?>

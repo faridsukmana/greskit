@@ -1,0 +1,613 @@
+/*================This CSS use only for Drop Down Menu========*/
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+#cssmenu,
+#cssmenu ul,
+#cssmenu ul li,
+#cssmenu ul li a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#cssmenu:after,
+#cssmenu > ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+#cssmenu {
+  padding-left:70px;
+  width: auto;
+  border-bottom: 3px solid #47c9af;
+  font-family: Raleway, sans-serif;
+  line-height: 1;
+}
+#cssmenu ul {
+  background: #ffffff;
+}
+#cssmenu > ul > li {
+  float: left;
+}
+#cssmenu.align-center > ul {
+  font-size: 0;
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  display: inline-block;
+  float: none;
+}
+#cssmenu.align-right > ul > li {
+  float: right;
+}
+#cssmenu.align-right > ul > li > a {
+  margin-right: 0;
+  margin-left: -4px;
+}
+#cssmenu > ul > li > a {
+  z-index: 2;
+  padding: 18px 25px 12px 25px;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  color: #444444;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  margin-right: -4px;
+}
+#cssmenu > ul > li.active > a,
+#cssmenu > ul > li:hover > a,
+#cssmenu > ul > li > a:hover {
+  color: #ffffff;
+}
+#cssmenu > ul > li > a:after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  width: 100%;
+  height: 120%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  content: "";
+  -webkit-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  -webkit-transform: perspective(5px) rotateX(2deg);
+  -webkit-transform-origin: bottom;
+  -moz-transform: perspective(5px) rotateX(2deg);
+  -moz-transform-origin: bottom;
+  transform: perspective(5px) rotateX(2deg);
+  transform-origin: bottom;
+}
+#cssmenu > ul > li.active > a:after,
+#cssmenu > ul > li:hover > a:after,
+#cssmenu > ul > li > a:hover:after {
+  background: #47c9af;
+}
+
+/*=========================Dropdown Menu===================================*/
+.dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content > li a{
+	min-height: 20px;
+    color: black;
+    /*padding: 12px 12px 12px 16px;*/
+    text-decoration: none;
+    display: block;
+	font-size: 12px;
+}
+
+.dropdown-content a:hover {background-color: #47c9af; color:white;}
+
+.dropbtn:hover .dropdown-content {
+    display: block;
+	padding: 10px 5px 10px 5px;
+}
+
+/*=========================CSSS For Hightchart=============================*/
+#container, #sliders {
+    min-width: 310px; 
+    max-width: 800px;
+    margin: 0 auto;
+}
+#container {
+    height: 400px; 
+}
+
+/*=========================Mengatur CSS untuk halaman======================*/
+#f_content{
+	font-family:verdana,helvetica,arial,sans-serif;
+    padding:20px;
+    font-size:12px;
+    margin:auto;
+}
+ .note{
+	font-family:verdana,helvetica,arial,sans-serif;
+	font-style:	oblique;
+	text-align:center;
+	font-size:20;
+ }
+ 
+ .toptext{
+	font-family: 'EB Garamond', serif;
+	font-size: 18px;
+	text-decoration:none;
+ }
+ 
+ .toptext a{
+	text-decoration:none;
+	color:green;
+ }
+ 
+ .toptext a:hover{
+	color:#47c9af;
+ } 
+ 
+  .editlink{
+	text-decoration:none;
+ }
+ 
+ .editlink a{
+	text-decoration:none;
+	color:green;
+ }
+ 
+ .editlink a:hover{
+	color:#47c9af;
+ } 
+ 
+ .datalink{
+	text-decoration:none;
+ }
+ 
+ .datalink a{
+	text-decoration:none;
+	color:black;
+ }
+ 
+ .datalink a:hover{
+	color:green;
+ } 
+ 
+ .butt{
+  font-family:verdana,helvetica,arial,sans-serif; /*Firefox tries to use system font on button*/
+  display: inline-block;
+  padding: 6px 9px;
+  margin: 0 2px 0 0;
+  font-size: 13px;
+  line-height: 24px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: none;
+  -moz-user-select: none;
+  background-color: #9a9a9a;
+  color: white;
+}
+
+.butt:hover {
+  background-color: #7a7a7a;
+  text-decoration: none;
+}
+
+.title{
+	color:#454545; 
+	font-size: 13px;
+	font-family:verdana,helvetica,arial,sans-serif;
+	font-weight:bold;
+}
+
+.name{
+	color:#454545; 
+	font-size: 13px;
+	font-family:verdana,helvetica,arial,sans-serif;
+}
+
+.console{
+	color:#454545; 
+	font-size: 13px;
+	font-family:verdana,helvetica,arial,sans-serif;
+}
+ 
+ /*=========================Digunakan untuk teks pada handsontable==========*/
+#example1{
+	color:#454545; 
+	font-family:verdana,helvetica,arial,sans-serif;
+	z-index:0;
+}
+ 
+ .handsontable table{
+    font-size:12px;
+ }
+
+ tr.FirstRowColor td {
+    background-color: #fff !important;
+ }
+ 
+ tr.someColorClassName td {
+    background-color: #f70e03 !important;
+    color: #ffffff !important;
+ }
+ 
+ tr.someColorClassNameTwo td {
+    background-color: #edda01 !important;
+    /*color: #ffffff !important;*/
+ }
+ 
+ tr.someColorClassNameThree td {
+    background-color: #89bd4b !important;
+    /*color: #ffffff !important;*/
+ }
+ 
+ /*===========Link Title =============*/
+ 
+ /* Judul SISOFT aplikasi*/
+ .sis {
+  font-family: 'Open Sans', sans-serif;
+  color: #47c9af;
+  text-decoration: none;
+  /*text-transform: uppercase;*/
+  font-size: 50px;
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1;
+  text-shadow: #EDEDED 3px 2px 0;
+  position: relative;
+  text-align: center;
+}
+ 
+ /* Hanya untuk teks welcome*/
+ .wel{
+	font-family: 'EB Garamond', serif;
+	font-size: 2.7em;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	display: block;
+	font-style:normal;
+	padding-top: 0.1em;
+	text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+	text-align:center;
+	
+ }
+ 
+ .ade{
+	font-family: 'EB Garamond', serif;
+	font-size: 1.2em;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	display: block;
+	font-style:normal;
+	padding-top: 0.1em;
+	text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+	text-align:center;
+ }
+ 
+ /*untuk membuat style form */
+ .form-style-1{
+    max-width: 500px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	margin:auto;
+}
+
+.form-style-1 fieldset{
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid #47c9af;
+    padding: 20px;
+    background: none;
+    box-shadow: inset 0px 0px 15px #47c9af;;
+    -moz-box-shadow: inset 0px 0px 2px #47c9af;
+    -webkit-box-shadow: inset 0px 0px 2px #47c9af;
+}
+
+.form-style-1 fieldset legend{
+    color: #47c9af;
+    border-top: 1px solid #47c9af;
+    border-left: 1px solid #47c9af;
+    border-right: 1px solid #47c9af;
+    border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    background: #d2f2eb;
+    padding: 0px 8px 3px 8px;
+    box-shadow: -0px -1px 2px #47c9af;
+    -moz-box-shadow:-0px -1px 2px #47c9af;
+    -webkit-box-shadow:-0px -1px 2px #47c9af;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.form-style-2{
+    max-width: 800px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	margin:auto;
+}
+
+.form-style-2 fieldset{
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid #47c9af;;
+    padding: 20px;
+    background: none;
+    box-shadow: inset 0px 0px 15px #47c9af;;
+    -moz-box-shadow: inset 0px 0px 2px #47c9af;;
+    -webkit-box-shadow: inset 0px 0px 2px #47c9af
+}
+
+.form-style-2 fieldset legend{
+    color: #47c9af;
+    border-top: 1px solid #47c9af;
+    border-left: 1px solid #47c9af;
+    border-right: 1px solid #47c9af;
+    border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    background: #d2f2eb;
+    padding: 0px 8px 3px 8px;
+    box-shadow: -0px -1px 2px #47c9af;
+    -moz-box-shadow:-0px -1px 2px #47c9af;
+    -webkit-box-shadow:-0px -1px 2px #47c9af;
+    font-weight: normal;
+    font-size: 12px;
+}
+ 
+ /*hanya untuk submit button*/
+ .form-submit{
+	padding: 4px 12px 5px !important;
+	font-size: 12px !important;
+	background-color: #57d6c7;
+	font-weight: bold;
+	text-shadow: 1px 1px #57D6C7;
+	color: #ffffff;
+	border-radius: 3px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #57D6C7;
+	cursor: pointer;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+
+/*--------------Template Text For Pop Up Windows--------------------*/
+.text-popup{
+	color: rgba(0,0,0,0.6);
+	text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+	font-family:Baskerville,Times,'Times New Roman',serif;
+	font-variant:small-caps;
+	letter-spacing:1;
+}
+
+/*---------------------POP UP Windows-------------------------------*/
+
+.popup{
+  width: 100%;
+  height: 100vh;
+  display: none;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index:2;
+}
+
+#popup-article:target{
+  display: block;
+}
+
+.popup__block{
+  height: calc(100vh - 40px);
+  padding: 5% 15%;
+  box-sizing: border-box;
+  
+  margin-top: 20px;
+  overflow: auto;
+  -webkit-animation: fade .5s ease-out 1.3s both;
+          animation: fade .5s ease-out 1.3s both;
+}
+
+.popup:before{
+  content: "";
+  box-sizing: border-box;
+  width: 100%;
+  
+  box-shadow: inset 0 0 0 20px #f0f0f0;
+  background: #fff;
+
+  position: fixed;
+  top: 50%;
+  will-change: height, top;
+  -webkit-animation: open-animation .6s cubic-bezier(0.83, 0.04, 0, 1.16) .65s both;
+          animation: open-animation .6s cubic-bezier(0.83, 0.04, 0, 1.16) .65s both;
+}
+
+.popup:after{
+  content: "";
+  width: 0;
+  height: 2px;
+  background-color: #f0f0f0;
+  
+  will-change: width, opacity;
+  -webkit-animation: line-animation .6s cubic-bezier(0.83, 0.04, 0, 1.16) both;
+          animation: line-animation .6s cubic-bezier(0.83, 0.04, 0, 1.16) both;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -1px;
+}
+
+@-webkit-keyframes line-animation{
+
+  0%{
+    width: 0;
+    opacity: 1;
+  }
+
+  99%{
+    width: 100%;
+    opacity: 1;
+  }
+
+  100%{
+    width: 100%;
+    opacity: 0;
+  }  
+}
+
+@keyframes line-animation{
+
+  0%{
+    width: 0;
+    opacity: 1;
+  }
+
+  99%{
+    width: 100%;
+    opacity: 1;
+  }
+
+  100%{
+    width: 100%;
+    opacity: 0;
+  }  
+}
+
+@-webkit-keyframes open-animation{
+
+  0%{
+    height: 0;
+    top: 50%;
+  }
+
+  100%{
+    height: 100vh;
+    top: 0;
+  }
+}
+
+@keyframes open-animation{
+
+  0%{
+    height: 0;
+    top: 50%;
+  }
+
+  100%{
+    height: 100vh;
+    top: 0;
+  }
+}
+
+@-webkit-keyframes fade{
+
+  0%{
+    opacity: 0;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes fade{
+
+  0%{
+    opacity: 0;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}
+
+.popup__title{
+  margin: 0 0 1em;
+}
+
+.popup__close{
+  width: 3.2rem;
+  height: 3.2rem;
+  text-indent: -9999px;
+  position: absolute;
+  
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gICAgPHBhdGggZD0iTTE5IDYuNDFMMTcuNTkgNSAxMiAxMC41OSA2LjQxIDUgNSA2LjQxIDEwLjU5IDEyIDUgMTcuNTkgNi40MSAxOSAxMiAxMy40MSAxNy41OSAxOSAxOSAxNy41OSAxMy40MSAxMnoiLz4gICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==);
+}
+
+.popup__media{
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 641px){
+
+  .popup__title{
+    font-size: 3.8rem;
+  }
+
+  .popup__close{
+    top: 40px;
+    right: 40px;
+  }
+  
+  .popup__media{
+    max-width: 35%;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+	padding: 5px;
+  }
+
+  .popup__media_left{
+    float: left;
+    margin-right: 3rem;
+  }
+
+  .popup__media_right{
+    float: right;
+    margin-left: 3rem;
+  }  
+}
+
+@media screen and (max-width: 640px){
+
+  .popup__title{
+    font-size: 2.2rem;
+  }
+
+  .popup__close{
+    top: 20px;
+    right: 20px;
+  }
+}
+ /*.handsontable table thead th {
+  white-space: pre-line;
+  max-width: /* enter here your max header width 
+}*/

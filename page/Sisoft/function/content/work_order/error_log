@@ -1,0 +1,4 @@
+[08-Nov-2020 04:26:40 UTC] PHP Warning:  mysql_connect(): Too many connections in /home/greskitc/timuraya.greskit.com/connect.php on line 9
+[08-Nov-2020 06:06:08 UTC] PHP Warning:  mysql_connect(): Too many connections in /home/greskitc/timuraya.greskit.com/connect.php on line 9
+[08-Nov-2020 06:06:18 UTC] PHP Warning:  mysql_connect(): Too many connections in /home/greskitc/timuraya.greskit.com/connect.php on line 9
+[08-Nov-2020 06:07:05 UTC] PHP Warning:  mysql_connect(): Too many connections in /home/greskitc/timuraya.greskit.com/connect.php on line 9
