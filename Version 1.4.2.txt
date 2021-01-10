@@ -6,3 +6,5 @@ Menghilangkan ' dan linebreak di dalam table handsontable
 Version 1.4.2
 History checklist
 Improvement checklist
+
+move to git
