@@ -282,7 +282,7 @@
 	DEFINE('DETWOSTATUS','SELECT A.WO_State, IFNULL(Total,0) Total
 	FROM
 	(SELECT WS.WorkStatusID, WS.WorkStatus WO_State FROM work_status WS ) A LEFT JOIN 
-	(SELECT WS.WorkStatusID, WS.WorkStatus WO_State, COUNT(*) Total FROM work_order WO, work_status WS WHERE WO.WorkStatusID=WS.WorkStatusID AND WO.Hidden="no" AND YEAR(DateReceived)=YEAR(CURDATE()) GROUP BY WO.WorkStatusID) B
+	(SELECT WS.WorkStatusID, WS.WorkStatus WO_State, COUNT(*) Total FROM work_order WO, work_status WS WHERE WO.WorkStatusID=WS.WorkStatusID AND WO.Hidden="no" AND WO.WorkTypeID<>"WT000002" GROUP BY WO.WorkStatusID) B
 	ON A.WorkStatusID=B.WorkStatusID
 	');
 	DEFINE('CREATED','SELECT WorkOrderNo WO, P.PlantCode Plant_Code, AssetNo Asset, T.WorkTypeDesc Work_Type, E.FirstName Assign_To, S.WorkStatus Work_Status, ProblemDesc Description FROM work_order WO, asset A, work_status S, work_type T, employee E, plant P WHERE P.PlantId=A.PlantId AND A.AssetID=WO.AssetID AND WO.WorkStatusID=S.WorkStatusID AND WO.AssignID=E.EmployeeID AND WO.WorkTypeID=T.WorkTypeID AND WO.WorkTypeID<>"WT000002" AND WO.Hidden="no" AND (WO.WorkStatusID="WS000001") ORDER BY WorkOrderNo DESC');

@@ -223,8 +223,49 @@
 				$i++;
 			}
 			
+			//=======SECOND ROW =======
+			$content .= get_js_graph(array(DETWOSTATUS,'3d-column-interactive','DETAIL WORK ORDER STATUS','WO Status','detwostatus','500','500','typequery1',PATH_WORDER.'&data=','USD'));
+			
+			$content .= get_js_graph(array(WOBACKLOG,'3d-pie','WO BACKLOG','Percent Work Order','wobacklog','450','450','typequery1',PATH_WORDER.'&data=','Total Work Order'));
+			$query = WOBACKLOG; $detail='';
+			$result = mysql_exe_query(array($query,1)); 
+			$i=0;
+			while($result_now=mysql_exe_fetch_array(array($result,1))){
+				$detail_wobacklog .= '<button type="button" class="btn badge-secondary" style="margin-top:3px;">
+							  '.$result_now[0].' <span class="badge badge-info">'.$result_now[1].'</span>
+							</button> ';
+				$i++;
+			}
+			
 			$content .= ' 
 				<div class="row">
+				<div class="col-lg-6">
+					<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-table fa-fw"></i> DETAIL WORK ORDER STATUS
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="detwostatus"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+				</div>
+				<div class="col-lg-6">
+					<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-table fa-fw"></i> WO BACKLOG
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="wobacklog"></div>
+							<div class="text-center">'.$detail_wobacklog.'</div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+				</div>
 				<div class="col-lg-12">
 				  <div class="content-wrapper">
 					<div class="row">
@@ -332,22 +373,9 @@
 			//=======3rd ROW ========
 			$content .= get_js_graph(array(ALL_PLANT_MTTR_DAY_KR,'3d-pie','ALL PLANT MTTR (DAYS) KERAWANG','Percent MTTR','mttrdaykr','450','450','typequery1',PATH_INDEX_PAGE,'MTTR'));
 			$content .= get_js_graph(array(ALL_PLANT_MTTR_DAY_TG,'3d-pie','ALL PLANT MTTR (DAYS) TANGERANG','Percent MTTR','mttrdaytg','450','450','typequery1',PATH_INDEX_PAGE,'MTTR'));
-		
-			//=======LAST ROW =======
-			$content .= get_js_graph(array(DETWOSTATUS,'3d-column-interactive','DETAIL WORK ORDER STATUS','WO Status','detwostatus','500','500','typequery1',PATH_INDEX_PAGE,'USD'));
-			
-			$content .= get_js_graph(array(WOBACKLOG,'3d-pie','WO BACKLOG','Percent Work Order','wobacklog','450','450','typequery1',PATH_INDEX_PAGE,'Total Work Order'));
-			$query = WOBACKLOG; $detail='';
-			$result = mysql_exe_query(array($query,1)); 
-			$i=0;
-			while($result_now=mysql_exe_fetch_array(array($result,1))){
-				$detail_wobacklog .= '<button type="button" class="btn badge-secondary" style="margin-top:3px;">
-							  '.$result_now[0].' <span class="badge badge-info">'.$result_now[1].'</span>
-							</button> ';
-				$i++;
-			}
 			
 			$content .= '
+			<div class="row">
 				<div class="col-lg-6">
 					<div class="panel panel-default">
                         <div class="panel-heading">
@@ -395,33 +423,6 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div id="mttrdaytg"></div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-				</div>
-				<div class="col-lg-6">
-					<div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-table fa-fw"></i> DETAIL WORK ORDER STATUS
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="detwostatus"></div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-				</div>
-				<div class="col-lg-6">
-					<div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-table fa-fw"></i> WO BACKLOG
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="wobacklog"></div>
-							<div class="text-center">'.$detail_wobacklog.'</div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
