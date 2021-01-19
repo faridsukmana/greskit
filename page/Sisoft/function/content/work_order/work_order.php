@@ -17,16 +17,30 @@
 			//if(_DELETE_) $width = "[200,200,300,150,150,80,80,200,200,200,200,200,200,200,200,200,200,400,400,400,400]";
 			//else $width = "[200,300,300,150,150,80,200,200,200,200,200,200,200,200,200,400,400,400,400]";
 			
+			//=== add request filter ===
+			if(isset($_REQUEST['section'])){
+				$section = ' AND WR.WorkTrade LIKE "%'.$_REQUEST['section'].'%"';
+			}else{
+				$section = '';
+			}
+			
+			if(isset($_REQUEST['state'])){
+				$state = ' AND WS.WorkStatus LIKE "%'.$_REQUEST['state'].'%"';
+			}else{
+				$state = '';
+			}
+			//==========================
+			
 			if(_DELETE_) $width = "[150,200,500,400,250,150,200,200,200,200,200,200,200,80,80]";
 			else $width = "[150,200,500,400,250,150,200,200,200,200,200,200,200,80,80]";
 			if ($_SESSION['userID'] !='') {
 				//-------get id pada sql -------------
 				if(isset($_REQUEST['dashwoclose'])){
-			        $wobaru = WORDER.' AND WO.WorkTypeID<>"WT000002" AND (WO.WorkStatusID="WS000020") ORDER BY WO.WorkOrderNo DESC';
+			        $wobaru = WORDER.' AND WO.WorkTypeID<>"WT000002" AND (WO.WorkStatusID="WS000020")'.$section.$state.' ORDER BY WO.WorkOrderNo DESC';
 			    }else if(isset($_REQUEST['dashwoact'])){
-			        $wobaru = WORDER.' AND WO.WorkTypeID<>"WT000002" AND WO.WorkStatusID NOT IN (SELECT WorkStatusID FROM work_status WHERE WorkStatusID="WS000020" OR WorkStatusID="WS000021") ORDER BY WO.WorkOrderNo DESC';
+			        $wobaru = WORDER.' AND WO.WorkTypeID<>"WT000002" AND WO.WorkStatusID NOT IN (SELECT WorkStatusID FROM work_status WHERE WorkStatusID="WS000020" OR WorkStatusID="WS000021")'.$section.$state.' ORDER BY WO.WorkOrderNo DESC';
 			    }else{
-			        $wobaru = WORDER.'  AND WO.WorkTypeID<>"WT000002" ORDER BY WO.WorkOrderNo DESC';
+			        $wobaru = WORDER.'  AND WO.WorkTypeID<>"WT000002"'.$section.$state.' ORDER BY WO.WorkOrderNo DESC';
 			    }
 				$field = gen_mysql_id($wobaru);
 				//-------get header pada sql----------
@@ -46,11 +60,11 @@
 			}elseif($_SESSION['userID'] ==''){
 				//-------get id pada sql -------------
 				if(isset($_REQUEST['dashwoclose'])){
-			        $wobaru = WORDER.' AND WO.WorkTypeID<>"WT000002" AND (WO.WorkStatusID="WS000020") ORDER BY WO.WorkOrderNo DESC';
+			        $wobaru = WORDER.' AND WO.WorkTypeID<>"WT000002" AND (WO.WorkStatusID="WS000020")'.$section.$state.' ORDER BY WO.WorkOrderNo DESC';
 			    }else if(isset($_REQUEST['dashwoact'])){
-			        $wobaru = WORDER.' AND WO.WorkTypeID<>"WT000002" AND WO.WorkStatusID NOT IN (SELECT WorkStatusID FROM work_status WHERE WorkStatusID="WS000020" OR WorkStatusID="WS000021") ORDER BY WO.WorkOrderNo DESC';
+			        $wobaru = WORDER.' AND WO.WorkTypeID<>"WT000002" AND WO.WorkStatusID NOT IN (SELECT WorkStatusID FROM work_status WHERE WorkStatusID="WS000020" OR WorkStatusID="WS000021")'.$section.$state.' ORDER BY WO.WorkOrderNo DESC';
 			    }else{
-			        $wobaru = WORDER.'  AND WO.WorkTypeID<>"WT000002" ORDER BY WO.WorkOrderNo DESC';
+			        $wobaru = WORDER.'  AND WO.WorkTypeID<>"WT000002"'.$section.$state.' ORDER BY WO.WorkOrderNo DESC';
 			    }
 				$field = gen_mysql_id($wobaru);
 				//-------get header pada sql----------
