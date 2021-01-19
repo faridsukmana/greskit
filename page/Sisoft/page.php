@@ -240,7 +240,7 @@
 								<li><a href="<?php echo PATH_WRTYPE;?>">Work Type List</a></li>
 								<li><a href="<?php echo PATH_WARRAN;?>">Warranty / Contract</a></li>
 								<li><a href="<?php echo PATH_ASSTAT;?>">Asset Status List</a></li>
-								<li><a href="<?php echo PATH_WTRADE;?>">Work Trade</a></li>
+								<li><a href="<?php echo PATH_WTRADE;?>">Section</a></li>
 								<li><a href="<?php echo PATH_CRITIC;?>">Asset Critically</a></li>
 								<li><a href="<?php echo PATH_POSITI;?>">Position</a></li>
 							</ul>

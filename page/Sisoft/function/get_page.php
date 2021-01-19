@@ -224,9 +224,9 @@
 			}
 			
 			//=======SECOND ROW =======
-			$content .= get_js_graph(array(DETWOSTATUS,'3d-column-interactive','DETAIL WORK ORDER STATUS','WO Status','detwostatus','500','500','typequery1',PATH_WORDER.'&data=','USD'));
+			$content .= get_js_graph(array(DETWOSTATUS,'3d-column-interactive','DETAIL WORK ORDER STATUS','WO Status','detwostatus','500','500','typequery1',PATH_WORDER.'&state=','USD'));
 			
-			$content .= get_js_graph(array(WOBACKLOG,'3d-pie','WO BACKLOG','Percent Work Order','wobacklog','450','450','typequery1',PATH_WORDER.'&data=','Total Work Order'));
+			$content .= get_js_graph(array(WOBACKLOG,'3d-pie','WO BACKLOG','Percent Work Order','wobacklog','450','450','typequery1',PATH_WORDER.'&section=','Total Work Order'));
 			$query = WOBACKLOG; $detail='';
 			$result = mysql_exe_query(array($query,1)); 
 			$i=0;
