@@ -51,47 +51,24 @@
 				$content = '<br/><div class="ade">'.TJVMOVEMENT.'</div>';
 				$content .= '<div class="toptext" align="center">'._USER_VIEW_._USER_INSERT_.'</div>';
 				//----- Buat Form Isian Berikut-----
-				
-				$table = '
-				<table id="itemdata" class="table table-bordered" style="width:100%;font-size: 14px; ">
-					<thead>
-						<tr>
-							<th> No </th>
-							<th> Item Code </th>
-							<th> Item Name </th>
-							<th> Quantity </th>
-							<th> Remark </th>
-						</tr>
-					</thead>
-					<tbody>
-						
-					</tbody>	
-				</table>
-				';
-				
-				$input = '<div>
-							<form action="'.PATH_JVMOVEMENT.ADD.POST.'" method="post" enctype="multipart/form-data">
-								<div class="d-flex justify-content-center">
-									<div><label>Date</label>'.date_je(array('date','')).'</div>
-								</div>
-								<div class="d-flex justify-content-center">
-									'.combo_je(array(COMBWORDER,'worder','worder',250,'<option value="">Choose WO Number ...</option>','')).'
-								</div>
-								<div class="d-flex justify-content-center">
-									<input class="btn btn-success btn-lg" style="width:250px;" type="submit" value="Submit">
-								</div>
-								<div class="p-2 d-flex justify-content-center" >
-									<div class="alert alert-primary" style="text-align:center;" id="progress">
-										Loading Process.......................
-									</div>
-								</div>
-								<div class="p-2 row">
-									<div class="col-1"></div><div class="col-10">'.$table.'</div><div class="col-1"></div>
-								<div class="row">
-							</form>
-						  </div>';
-				
-				$content .= $input.js_topup().js_movement();
+				$name_field=array('Date Journal Movement','Spare Part Name','Cost Center','Site','Work Order','Number of Stock','Remark 1','Remark 2');
+				$input_type=array(
+							date_je(array('date','')),
+							combo_je(array(COMBITEM,'spare','spare',250,'','')),
+							combo_je(array(COMBCCENTER,'ccenter','ccenter',250,'','')),
+							combo_je(array(COMBSITE,'site','site',250,'','')),
+							combo_je(array(COMBWORDER,'worder','worder',250,'<option value="">-</option>','')),
+							text_je(array('stock','','false')),
+							text_area_je(array('remark1',$remark1,'true')),
+							text_area_je(array('remark2',$remark2,'true'))
+						);
+				$signtofill = array('','<small id="fill" class="form-text text-muted">Please fill this field.</small>',
+									'<small id="fill" class="form-text text-muted">Please fill this field.</small>',
+									'<small id="fill" class="form-text text-muted">Please fill this field.</small>',
+									'<small id="fill" class="form-text text-muted">Please fill this field.</small>',
+									'',
+									'');
+				$content .= create_form(array('',PATH_JVMOVEMENT.ADD.POST,1,$name_field,$input_type,$signtofill)).js_topup();
 				//------ Aksi ketika post menambahkan data -----//
 				if(isset($_REQUEST['post'])){
 					if(!empty($_REQUEST['spare']) && !empty($_REQUEST['ccenter']) && !empty($_REQUEST['stock']) && !empty($_REQUEST['date'])){
@@ -301,39 +278,6 @@
 			  </div>
 			</div>
 			';
-		return $content;
-	}
-	
-	function js_movement(){
-		$content = "<script>
-						$(document).ready(function(){
-							$('#progress').hide();
-						})
-						
-						$('#itemdata').DataTable({
-							'paging':false,
-							'searching':false
-						});
-						
-						$('#worder').on('change',function(){
-							$('#itemdata').empty();
-							var wo = $('#worder').val(); 
-							$.ajax({
-								type: 'POST',
-								url:'"._ROOT_."function/content_menu/journal_movement/wo_item.php',
-								data: {'wo':wo},
-								crossDomain: true,
-								cache: false,
-								beforeSend: function(){
-									$('#progress').show();
-								},	
-								success:function(data){ 
-									$('#progress').hide();
-									$('#itemdata').append(data);
-								}
-							})
-						})
-					</script>";
 		return $content;
 	}
 ?>

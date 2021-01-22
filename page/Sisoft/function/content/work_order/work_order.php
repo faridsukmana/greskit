@@ -19,7 +19,7 @@
 			
 			//=== add request filter ===
 			if(isset($_REQUEST['section'])){
-				$section = ' AND WR.WorkTrade LIKE "%'.$_REQUEST['section'].'%"';
+				$section = ' AND WR.WorkTrade LIKE "%'.$_REQUEST['section'].'%" AND (WO.WorkStatusID="WS000001" OR WO.WorkStatusID="WS000010" OR WO.WorkStatusID="WS000012" OR WO.WorkStatusID="WS000013" OR WO.WorkStatusID="WS000014" OR WO.WorkStatusID="WS000019" OR WO.WorkStatusID="WS000022")';
 			}else{
 				$section = '';
 			}

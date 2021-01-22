@@ -277,7 +277,7 @@
 	DEFINE('WOBACKLOG','SELECT A.Section, IFNULL(Total,0) Total
 	FROM
 	(SELECT WS.WorkTradeID, WS.WorkTrade Section FROM work_trade WS) A LEFT JOIN 
-	(SELECT WS.WorkTradeID, WS.WorkTrade Section, COUNT(*) Total FROM work_order WO, work_trade WS WHERE WO.WorkTradeID=WS.WorkTradeID AND WO.Hidden="no" AND WO.WorkTypeID<>"WT000002" GROUP BY WO.WorkTradeID) B
+	(SELECT WS.WorkTradeID, WS.WorkTrade Section, COUNT(*) Total FROM work_order WO, work_trade WS WHERE WO.WorkTradeID=WS.WorkTradeID AND WO.Hidden="no" AND WO.WorkTypeID<>"WT000002" AND (WO.WorkStatusID="WS000001" OR WO.WorkStatusID="WS000010" OR WO.WorkStatusID="WS000012" OR WO.WorkStatusID="WS000013" OR WO.WorkStatusID="WS000014" OR WO.WorkStatusID="WS000019" OR WO.WorkStatusID="WS000022") GROUP BY WO.WorkTradeID) B
 	ON A.WorkTradeID=B.WorkTradeID');
 	DEFINE('DETWOSTATUS','SELECT A.WO_State, IFNULL(Total,0) Total
 	FROM
