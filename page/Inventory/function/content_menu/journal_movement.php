@@ -94,45 +94,53 @@
 				$content .= $input.js_topup().js_movement();
 				//------ Aksi ketika post menambahkan data -----//
 				if(isset($_REQUEST['post'])){
-					if(!empty($_REQUEST['spare']) && !empty($_REQUEST['ccenter']) && !empty($_REQUEST['stock']) && !empty($_REQUEST['date'])){
-						//-- Cek stock di dalam inventory //
-						$qstock = 'SELECT stock, last_price FROM invent_item WHERE item_id="'.$_REQUEST['spare'].'"';
-						$resultstock = mysql_exe_query(array($qstock,1));
-						$resultnowstock = mysql_exe_fetch_array(array($resultstock,1)); $stock_now=$resultnowstock[0]; $price=$resultnowstock[1];
-						if($_REQUEST['stock']>$stock_now){
-							$content = empty_info(array('Availeble Stock in inventory is '.$stock_now)).$content;
-						}else{
-						//-- Generate a new id untuk kategori aset --// 
-						$jvmovementid=get_new_code(array('JVMOVET',$numrow,1));  
-						//-- Insert data pada kategori aset --//
-						$field = array(
-								'jvmovement_id',
-								'item_id',
-								'id_cost_center',
-								'take_by',
-								'number_of_stock',
-								'state',
-								'remark1',
-								'remark2',
-								'date_jvmovement',
-								'WorkOrderNo',
-								'id_site');
-						$value = array(
-								'"'.$jvmovementid.'"',
-								'"'.$_REQUEST['spare'].'"',
-								'"'.$_REQUEST['ccenter'].'"',
-								'"'.$_SESSION['user'].'"',
-								'"'.$_REQUEST['stock'].'"',
-								'"SJVST181012013921"',
-								'"'.$_REQUEST['remark1'].'"',
-								'"'.$_REQUEST['remark2'].'"',
-								'"'.$_REQUEST['date'].'"',
-								'"'.$_REQUEST['worder'].'"',
-								'"'.$_REQUEST['site'].'"'); 
-						$query = mysql_stat_insert(array('invent_journal_movement',$field,$value)); 
-						mysql_exe_query(array($query,1)); 
+					if(!empty($_REQUEST['worder']) && !empty($_REQUEST['date'])){
+						$query = 'SELECT A.item_id, A.item_description, B.request_quantity FROM invent_item A, invent_item_work_order B WHERE A.item_id=B.itemspare AND WorkOrderNo="'.$_REQUEST['worder'].'"';
+						$result = mysql_exe_query(array($query,1)); $info='';$i=1;
+						while($resultnow = mysql_exe_fetch_array(array($result,1))){
+							//-- Cek stock di dalam inventory //
+							$qstock = 'SELECT stock, last_price FROM invent_item WHERE item_id="'.$result_now[0].'"';
+							$resultstock = mysql_exe_query(array($qstock,1));
+							$resultnowstock = mysql_exe_fetch_array(array($resultstock,1)); $stock_now=$resultnowstock[0]; $price=$resultnowstock[1];
+							if($_REQUEST['stock']>$stock_now){
+								$info .= empty_info(array('Availeble Stock in inventory '.$resultnow[1].' is '.$stock_now)).$content;
+							}else if(isset($_REQUEST['check_'.$resultnow[0]])){
+							//-- Generate a new id untuk kategori aset --// 
+							$jvmovementid=get_new_code(array('JVMOVET',$numrow+$i,1)).$i;  
+							//-- Insert data pada kategori aset --//
+							$field = array(
+									'jvmovement_id',
+									'item_id',
+									'id_cost_center',
+									'take_by',
+									'number_of_stock',
+									'state',
+									'remark1',
+									'remark2',
+									'date_jvmovement',
+									'WorkOrderNo',
+									'id_site');
+							$value = array(
+									'"'.$jvmovementid.'"',
+									'"'.$resultnow[0].'"',
+									'"CCENT181103120129"',
+									'"'.$_SESSION['user'].'"',
+									'"'.$resultnow[2].'"',
+									'"SJVST181012013921"',
+									'"'.$_REQUEST['text_'.$resultnow[0]].'"',
+									'""',
+									'"'.$_REQUEST['date'].'"',
+									'"'.$_REQUEST['worder'].'"',
+									'""'); 
+							$query = mysql_stat_insert(array('invent_journal_movement',$field,$value));  
+							mysql_exe_query(array($query,1)); 
+							}
+							$i++;
+						}
+						
+						$content .= $info;
 						//-- Ambil data baru dari database --//
-						$querydat = JVMOVEMENT.' AND jvmovement_id="'.$jvmovementid.'"'; 
+						$querydat = JVMOVEMENT.' AND WorkOrderNo="'.$_REQUEST['worder'].'"'; 
 						$content .= '<br/><div id="example1" style="width: 100%; height: 100%; overflow: hidden; font-size=10px;"></div>';
 						//-------set lebar kolom -------------
 						$width = "[200,100,200,150,250,100,100,130,100,80]";
@@ -150,7 +158,7 @@
 						$fixedcolleft=0;
 						$sethandson = array($sethead,$setid,$data,$width,$fixedcolleft);
 						$content .= get_handson($sethandson);
-						}
+						
 					}else{
 						$content = empty_info(array('Some field is empty')).$content;
 					}

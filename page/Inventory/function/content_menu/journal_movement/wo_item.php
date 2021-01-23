@@ -1,5 +1,6 @@
 <?php
 	error_reporting (E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+	header('Content-type: text/html; charset=ASCII');
 	header('Origin:xxx.com');
     header('Access-Control-Allow-Origin:*');
 	
