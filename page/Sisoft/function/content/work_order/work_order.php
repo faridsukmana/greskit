@@ -675,23 +675,40 @@
 							<div id="step_work" style="width: 780px; height: 280px; overflow: hidden; font-size=10px;"></div>'.get_handson_id($sethandson).'</div>';
 				
 				//3.&&&&&&&&--Form ke 3. Buat Form Spare Part--&&&&
-				if(isset($_REQUEST['spare'])){
-					//-- Insert data pada kategori aset --//
-					$field = array(
-							'WorkOrderNo', 
-							'itemspare',
-							'request_quantity');
-					$value = array(
-							'"'.$_REQUEST['rowid'].'"',
-							'"'.$_REQUEST['spare'].'"',
-							'"'.$_REQUEST['request'].'"'); 
-					$query = mysql_stat_insert(array('invent_item_work_order',$field,$value)); 
-					mysql_exe_query(array($query,1)); 
+				//---- Data Spare Part Request ------//
+				$i=1; $body = ''; $q_data = QSPAREPART2.' AND WO.WorkOrderNo="'.$_REQUEST['rowid'].'"'; 
+				
+				$result = mysql_exe_query(array($q_data,1));
+				while($result_data_now = mysql_exe_fetch_array(array($result,1))){
+					$body .= '
+						<tr>
+						<td>'.$i.'</td>
+						<td>'.$result_data_now[0].'</td>
+						<td>'.$result_data_now[1].'</td>
+						<td>'.$result_data_now[3].'</td>
+						<td>'.$result_data_now[2].'</td>
+						<td><button class="btn btn-danger btn-rounded btn-fw" onclick="del_partreq(\''.$_REQUEST['rowid'].'\',\''.$result_data_now[0].'\')">Delete</td>
+					</tr>
+					'; $i++;
 				}
-				if(isset($_REQUEST['delspare']) && isset($_REQUEST['delete'])){
-					$con = 'WorkOrderNo="'.$_REQUEST['wo'].'" AND itemspare="'.$_REQUEST['rowid'].'"'; 
-					$sparepart = query_delete(array(PATH_WORDER.EDIT.'&rowid='.$_REQUEST['wo'], 'invent_item_work_order', $con));	
-				}
+				
+				$table = '
+				<table id="part_request" class="table table-bordered" style="width:100%">
+					<thead>
+						<tr>
+							<th> No </th>
+							<th> Item Code </th>
+							<th> Item Name </th>
+							<th> Request Stock </th>
+							<th> Available Stock </th>
+							<th> Delete </th>
+						</tr>
+					</thead>
+					<tbody>
+						'.$body.'
+					</tbody>	
+				</table>
+				';
 	
 				//---- Query Equipment Classification ------//
 				$option=''; $q_cat = 'SELECT item_category_code, CONCAT(item_no_code," - ",item_category_description) FROM invent_item_categories ORDER BY item_no_code ASC';
@@ -706,36 +723,35 @@
 				
 				DEFINE('COMBSPAREWO','SELECT item_id, item_description FROM invent_item WHERE item_id NOT IN (SELECT itemspare FROM invent_item_work_order WHERE WorkOrderNo="'.$_REQUEST['rowid'].'")');  
 				
-				$name_field=array('Spare Part Class','Spare Part','Request Quantity');
-				$input_type=array(
-							$eq_class,
-							$sp_class,
-							'<input type="text" class="form-control" id="request" name="request" placeholder="Request Quantity">'
-							//combo_je(array(COMBSPAREWO,'spare','spare',180,'','')),
-							//text_je(array('request','','false','','request'))
-						);
-				$signtofill = array('');
-				$sparepart .= '<div title="Spare Part" style="padding:10px">'.create_form(array(TSPAREPART,PATH_WORDER.EDIT.'&rowid='.$_REQUEST['rowid'].PSPARE,1,$name_field,$input_type,$signtofill));
-				
-				 $queryspare = QSPAREPART2.' AND WO.WorkOrderNo="'.$_REQUEST['rowid'].'"'; 
-                //-------set lebar kolom -------------
-                $width = "[200,400,200,100,200,100]";
-                //-------get id pada sql -------------
-                $field = gen_mysql_id($queryspare);
-                //-------get header pada sql----------
-                $name = gen_mysql_head($queryspare);
-                //-------set header pada handson------
-                $sethead = "['Item Code','Item Name','Request Quantity','Stock','Remark Stock'"._USER_DELETE_SETHEAD_."]";
-                //-------set id pada handson----------
-                $setid = "[{data:'Item_Code',className: 'htLeft'},{data:'Item_Name',className: 'htLeft'},{data:'Request',className: 'htLeft'},{data:'Quantity',className: 'htLeft'},{data:'remark_1',className: 'htLeft'}"._USER_DELETE_SETID_."]";
-				//-------get data pada sql------------
-				$dt = array($queryspare,$field,array('Delete'),array(PATH_WORDER.EDIT.'&wo='.$_REQUEST['rowid'].DELPSPARE),array());
-				$data = get_data_handson_func($dt);
-				//----Fungsi memanggil data handsontable melalui javascript---
-				$sethandson = array($sethead,$setid,$data,$width,$fixedcolleft,'sparepart');
-				//--------fungsi hanya untuk meload data
-				$sparepart.= '
-							<div id="sparepart" style="width: 780px; height: 280px; overflow: hidden; font-size=10px;"></div>'.get_handson_id($sethandson).'</div>'.spare_part();
+				$form_spare = '
+							<div class="row">
+								<div class="col">
+									<div class="alert alert-primary" role="alert">
+									  Spare Part Class : '.$eq_class.'
+									</div>
+								</div>
+								<div class="col">
+									<div class="alert alert-secondary" role="alert">
+									  Spare part : '.$sp_class.'
+									</div>
+								</div>
+								<div class="col">
+									<div class="alert alert-primary" role="alert">
+									  Request Quantity : <input type="text" class="form-control" id="requestqty" name="request" placeholder="Request Quantity"/>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col"></div>
+								<div class="col">
+									<input type="hidden" id="wo_partreq" value="'.$_REQUEST['rowid'].'" />
+									<button type="button" id="add_partreq" class="btn btn-primary btn-block">Add Data</button>
+									<div id="load_partreq" class="alert alert-warning" role="alert" style="margin-top:5px;">Loading ... </div>
+								</div>
+								<div class="col"></div>
+							</div>
+							<div style="margin-top:10px;">'.$table.'</div>';
+				$sparepart .= '<div title="Spare Part" style="padding:10px">'.$form_spare.spare_part().'</div>';
 				
 				//4.&&&&&&&&--Form ke 4. Buat Form Man Power--&&&&
 				if(isset($_REQUEST['power']) && isset($_REQUEST['costman']) && is_numeric($_REQUEST['costman'])){
@@ -1315,6 +1331,58 @@
 	
 	function spare_part(){
 		$content = "<script>
+						$('#part_request').DataTable();
+						
+						$(document).ready(function(){
+							$('#load_partreq').hide();
+						})
+						
+						$('#add_partreq').on('click',function(){
+							$('#part_request').empty();
+							var wo = $('#wo_partreq').val(); 
+							var eq_class_part = $('#eq_class_part').val(); 
+							var sp_class_part = $('#sp_class_part').val(); 
+							var request = $('#requestqty').val(); 
+							
+							var dataString = {'wo':wo,'sp_class_part':sp_class_part,'request':request};
+							$.ajax({
+								type: 'POST',
+								url:'"._ROOT_."function/content/work_order/list_partreq.php',
+								data:dataString,
+								crossDomain:true,
+								cache:false,
+								beforeSend: function(){
+									$('#load_partreq').show();
+								},
+								success:function(data){
+									$('#load_partreq').hide();
+									//alert(data);
+									$('#part_request').append(data);
+									$('#requestqty').val('');
+								}
+							})
+						})
+						
+						function del_partreq(wo,id){
+							$('#part_request').empty(); 
+							var id = id; 
+							$.ajax({
+								type: 'POST',
+								url:'"._ROOT_."function/content/work_order/delete_list_partreq.php',
+								data:{'wo':wo,'id':id},
+								crossDomain:true,
+								cache:false,
+								beforeSend: function(){
+									$('#load_partreq').show();
+								},
+								success:function(data){
+									$('#load_partreq').hide();
+									//alert(data);
+									$('#part_request').append(data);
+								}
+							})
+						}
+						
 						$('#eq_class_part').on('change',function(){
 							$('#sp_class_part').empty();
 							var cat = $('#eq_class_part').val();
@@ -1414,19 +1482,6 @@
 	function add_wo(){
 		$content = "
 				<script>
-					$(document).ready(function(){
-						var s = eval(sessionStorage.getItem('tabindex')); alert(s);
-						$('#tt').tabs('select', s);
-					})
-					
-					$('#tt').tabs({
-						    onSelect:function(title){
-								var tab = $('#tt').tabs('getSelected');
-								var index = $('#tt').tabs('getTabIndex',tab);
-								sessionStorage.setItem('tabindex', index);
-							}
-					})
-					
 					$('#plant').on('change',function(){
 						var plant = $('#plant').val();
 						$('#asset').empty();

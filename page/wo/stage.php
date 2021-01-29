@@ -10,7 +10,7 @@
 
     $wo = '';
     $wo = $_POST['wo']; 
-
+	$user = $_POST['user']; 
     //---- Get status for work order----//
     $qu = 'SELECT WorkStatusID FROM work_order WHERE WorkOrderNo="'.$wo.'"';
     $res = mysqli_query($con,$qu); 
