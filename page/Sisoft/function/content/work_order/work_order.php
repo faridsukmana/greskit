@@ -1010,7 +1010,7 @@
 					$submit = '<input class="form-submit" type="submit" value="Submit">';
 				}
 				
-				$content .= '<div class="easyui-tabs" style="width:800px;height:500px;margin:auto">
+				$content .= '<div id="tt" class="easyui-tabs" style="width:800px;height:500px;margin:auto">
 							<div title="Work Order" style="padding:10px">
 							<br/><div class="form-style-2"><form action="'.PATH_WORDER.EDIT.'&rowid='.$_REQUEST['rowid'].POST.'" method="post" enctype="multipart/form-data">
 							<fieldset><div class="card-header text-center">Work Order</div>
@@ -1414,6 +1414,19 @@
 	function add_wo(){
 		$content = "
 				<script>
+					$(document).ready(function(){
+						var s = eval(sessionStorage.getItem('tabindex')); alert(s);
+						$('#tt').tabs('select', s);
+					})
+					
+					$('#tt').tabs({
+						    onSelect:function(title){
+								var tab = $('#tt').tabs('getSelected');
+								var index = $('#tt').tabs('getTabIndex',tab);
+								sessionStorage.setItem('tabindex', index);
+							}
+					})
+					
 					$('#plant').on('change',function(){
 						var plant = $('#plant').val();
 						$('#asset').empty();
