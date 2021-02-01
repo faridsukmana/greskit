@@ -23,11 +23,20 @@
     }
 	
 	if($bolstage){
+		if($stage=="WS000001"){
+			$cond = 'AND WO.WorkStatusID="WS000001"';
+		}else if($stage=="WS000022"){
+			$cond = 'AND (WO.WorkStatusID="WS000010" OR WO.WorkStatusID="WS000012" OR WO.WorkStatusID="WS000013" OR WO.WorkStatusID="WS000014" OR WO.WorkStatusID="WS000019" OR WO.WorkStatusID="WS000022")';
+		}else if($stage=="WS000020"){
+			$cond = 'AND (WO.WorkStatusID="WS000020" OR WO.WorkStatusID="WS000021")';
+		}else{
+			$cond = '';
+		}
 		$query = '
 			SELECT WO.WorkOrderNo Work_Order_No, WO.DateReceived Receive_Date, WO.DateRequired Required_Date, WO.EstDateStart Estimated_Date_Start, WO.EstDateEnd Estimated_Date_End, WO.ActDateStart Actual_Date_Start, WO.ActDateEnd Actual_Date_End, WO.DateHandOver Hand_Over_Date, AG.FirstName Assign_to, CR.FirstName Created_By, RQ.FirstName Requestor, AE.AssetDesc Asset_Name, WT.WorkTypeDesc Work_Type, WP.WorkPriority Work_Priority, WS.WorkStatus Work_Status, WR.WorkTrade Work_Trade, FC.FailureCauseDesc Failure_Code, WO.ProblemDesc Problem_Desc, WO.CauseDescription Cause_Description, WO.ActionTaken Action_Taken, WO.PreventionTaken Prevention_Taken, WO.ImagePath, WO.QRPath, WS.WorkStatusID Work_Status_ID, AssetNo
 			FROM work_order WO, employee AG, employee CR, employee RQ, asset AE, work_type WT, work_priority WP, work_status WS, work_trade WR, failure_cause FC
-			WHERE WO.AssignID=AG.EmployeeID AND WO.CreatedID=CR.EmployeeID AND WO.RequestorID=RQ.EmployeeID AND WO.AssetID=AE.AssetID AND WO.WorkTypeID=WT.WorkTypeID AND WO.WorkPriorityID=WP.WorkPriorityID AND WO.WorkStatusID=WS.WorkStatusID AND WO.WorkTradeID=WR.WorkTradeID AND WO.FailureCauseID=FC.FailureCauseID AND WT.WorkTypeID<>"WT000002" AND WO.WorkStatusID LIKE "%'.$stage.'%" ORDER BY Work_Order_No DESC
-		';
+			WHERE WO.AssignID=AG.EmployeeID AND WO.CreatedID=CR.EmployeeID AND WO.RequestorID=RQ.EmployeeID AND WO.AssetID=AE.AssetID AND WO.WorkTypeID=WT.WorkTypeID AND WO.WorkPriorityID=WP.WorkPriorityID AND WO.WorkStatusID=WS.WorkStatusID AND WO.WorkTradeID=WR.WorkTradeID AND WO.FailureCauseID=FC.FailureCauseID AND WT.WorkTypeID<>"WT000002" '.$cond.' ORDER BY Work_Order_No DESC
+		'; //echo $query;
 	}
 	
 	if($bolasset){

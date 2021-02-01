@@ -5,6 +5,7 @@
 	//==== Glbal Define For get page after #if ($_SESSION['model']==1)# =======
 		$_SESSION['model'] = 1;
 	//=========================
+	date_default_timezone_set("Asia/Bangkok");
 	
 	error_reporting (E_ALL ^ E_NOTICE ^ E_DEPRECATED);
 	require_once('mysql_mysqli.inc.php');

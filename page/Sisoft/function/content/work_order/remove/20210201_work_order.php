@@ -31,8 +31,8 @@
 			}
 			//==========================
 			
-			if(_DELETE_) $width = "[150,150,200,500,400,250,150,200,200,200,200,200,200,200,80,80]";
-			else $width = "[150,150,200,500,400,250,150,200,200,200,200,200,200,200,80,80]";
+			if(_DELETE_) $width = "[150,200,500,400,250,150,200,200,200,200,200,200,200,80,80]";
+			else $width = "[150,200,500,400,250,150,200,200,200,200,200,200,200,80,80]";
 			if ($_SESSION['userID'] !='') {
 				//-------get id pada sql -------------
 				if(isset($_REQUEST['dashwoclose'])){
@@ -48,9 +48,9 @@
 
 				//-------set header pada handson------
 				//==========Timuraya================
-				$sethead = "['Work_Order_No','Plant','Asset_No','Asset_Name','Problem Description','Work_Type','Section','Requested_Date','Required_Date','Plan_Date_Start','Plan_Date_End','Actual_Date_Start','Actual_Date_End','Work_Status'"._USER_EDIT_SETHEAD_._USER_DELETE_SETHEAD_."]";
+				$sethead = "['Work_Order_No','Asset_No','Asset_Name','Problem Description','Work_Type','Section','Requested_Date','Required_Date','Plan_Date_Start','Plan_Date_End','Actual_Date_Start','Actual_Date_End','Work_Status'"._USER_EDIT_SETHEAD_._USER_DELETE_SETHEAD_."]";
 				//-------set id pada handson----------
-				$setid = "[{data:'Work_Order_No',renderer: 'html',className: 'htLeft'},{data:'Plant_Code',className: 'htLeft'},{data:'Asset_No',className: 'htLeft'},{data:'Asset_Name',className: 'htLeft'},{data:'Problem_Desc',className: 'htLeft'},{data:'Work_Type',className: 'htLeft'},{data:'Work_Trade',className: 'htLeft'},{data:'Receive_Date',className: 'htLeft'},{data:'Required_Date',className: 'htLeft'},{data:'Estimated_Date_Start',className: 'htLeft'},{data:'Estimated_Date_End',className: 'htLeft'},{data:'Actual_Date_Start',className: 'htLeft'},{data:'Actual_Date_End',className: 'htLeft'},{data:'Work_Status',renderer: 'html',className: 'htLeft'}"._USER_EDIT_SETID_._USER_DELETE_SETID_."]";
+				$setid = "[{data:'Work_Order_No',renderer: 'html',className: 'htLeft'},{data:'Asset_No',className: 'htLeft'},{data:'Asset_Name',className: 'htLeft'},{data:'Problem_Desc',className: 'htLeft'},{data:'Work_Type',className: 'htLeft'},{data:'Work_Trade',className: 'htLeft'},{data:'Receive_Date',className: 'htLeft'},{data:'Required_Date',className: 'htLeft'},{data:'Estimated_Date_Start',className: 'htLeft'},{data:'Estimated_Date_End',className: 'htLeft'},{data:'Actual_Date_Start',className: 'htLeft'},{data:'Actual_Date_End',className: 'htLeft'},{data:'Work_Status',renderer: 'html',className: 'htLeft'}"._USER_EDIT_SETID_._USER_DELETE_SETID_."]";
 				//-------get data pada sql------------
 				$dt = array($wobaru,$field,array('Edit','Delete'),array(PATH_WORDER.EDIT,PATH_WORDER.DELETE),array(0),PATH_WORDER);
 				$data = get_data_handson_func($dt);
@@ -72,9 +72,9 @@
 				
 				//-------set header pada handson------
 			//==========Timuraya================
-				$sethead = "['Work_Order_No','Plant','Asset_No','Asset_Name','Problem Description','Work_Type','Section','Requested_Date','Required_Date','Plan_Date_Start','Plan_Date_End','Actual_Date_Start','Actual_Date_End','Work_Status'"._USER_EDIT_SETHEAD_._USER_DELETE_SETHEAD_."]";
+				$sethead = "['Work_Order_No','Asset_No','Asset_Name','Problem Description','Work_Type','Section','Requested_Date','Required_Date','Plan_Date_Start','Plan_Date_End','Actual_Date_Start','Actual_Date_End','Work_Status'"._USER_EDIT_SETHEAD_._USER_DELETE_SETHEAD_."]";
 				//-------set id pada handson----------
-				$setid = "[{data:'Work_Order_No',renderer: 'html',className: 'htLeft'},{data:'Plant_Code',className: 'htLeft'},{data:'Asset_No',className: 'htLeft'},{data:'Asset_Name',className: 'htLeft'},{data:'Problem_Desc',className: 'htLeft'},{data:'Work_Type',className: 'htLeft'},{data:'Work_Trade',className: 'htLeft'},{data:'Receive_Date',className: 'htLeft'},{data:'Required_Date',className: 'htLeft'},{data:'Estimated_Date_Start',className: 'htLeft'},{data:'Estimated_Date_End',className: 'htLeft'},{data:'Actual_Date_Start',className: 'htLeft'},{data:'Actual_Date_End',className: 'htLeft'},{data:'Work_Status',renderer: 'html',className: 'htLeft'}"._USER_EDIT_SETID_._USER_DELETE_SETID_."]";
+				$setid = "[{data:'Work_Order_No',renderer: 'html',className: 'htLeft'},{data:'Asset_No',className: 'htLeft'},{data:'Asset_Name',className: 'htLeft'},{data:'Problem_Desc',className: 'htLeft'},{data:'Work_Type',className: 'htLeft'},{data:'Work_Trade',className: 'htLeft'},{data:'Receive_Date',className: 'htLeft'},{data:'Required_Date',className: 'htLeft'},{data:'Estimated_Date_Start',className: 'htLeft'},{data:'Estimated_Date_End',className: 'htLeft'},{data:'Actual_Date_Start',className: 'htLeft'},{data:'Actual_Date_End',className: 'htLeft'},{data:'Work_Status',renderer: 'html',className: 'htLeft'}"._USER_EDIT_SETID_._USER_DELETE_SETID_."]";
 				//-------get data pada sql------------
 				$dt = array($wobaru,$field,array('Edit','Delete'),array(PATH_WORDER.EDIT,PATH_WORDER.DELETE),array(0),PATH_WORDER);
 				$data = get_data_handson_func($dt);
@@ -133,7 +133,7 @@
 			}
 			//------------Jika ada halaman tambah data-------//
 			if(isset($_REQUEST['add'])){
-				$recdat = date('m/d/Y H:i'); //echo convert_date_time(array($recdat,1)); 
+				$recdat = date('m/d/Y H:i'); //echo convert_date_time(array($recdat,1));
 				$content = '<br/><div class="ade">ADD DATA FOR WORK ORDER</div>';
 				$content .= '<div class="toptext" align="center">'._USER_VIEW_._USER_INSERT_.'</div>';
 				
@@ -186,15 +186,6 @@
 				}
 				$comasset_desc = '<select class="form-control" id="assdesc" name="asset_desc">'.$option.'</select>';
 				
-				//---- Combo box for request by--------------//
-				$comasset_dept = '<select class="form-control" id="request" name="request"></select>';
-				//---- Query Dept Desc-----------------------//
-				$option=''; $comasset = LOCATNDEPART;
-				$result = mysql_exe_query(array($comasset,1));
-				while($result_now = mysql_exe_fetch_array(array($result,1))){
-					$option .= '<option value="'.$result_now[0].'" selected>'.$result_now[1].'</option>';
-				}
-				$comasset_dept2 = '<select class="form-control" id="department" name="department">'.$option.'</select>';
 				
 				$content .= '<br/><div class="form-style-2"><form action="'.PATH_WORDER.ADD.POST.'" method="post" enctype="multipart/form-data">
 							<fieldset><div class="card-header text-center">Work Order</div>
@@ -241,7 +232,7 @@
 									<div class="w-100"></div>
 									<div class="col">
 										<div class="alert alert-primary" role="alert" style="margin-bottom:0px;">
-										  <span class="name">Requested By : </span>'.$comasset_dept.'
+										  <span class="name">Requested By : </span>'.combo_je(array(COMEMPLOY,'request','request','100%','','')).'
 										</div>
 									</div>
 									<div class="col">
@@ -257,7 +248,7 @@
 									</div>
 									<div class="col">
 										<div class="alert alert-primary" role="alert" style="margin-bottom:0px;">
-										  <span class="name">Department : </span>'.$comasset_dept2.'
+										  <span class="name">Department : </span>'.combo_je(array(LOCATNDEPART,'department','department','100%','','')).'
 										</div>
 									</div>
 									<div class="w-100"></div>
@@ -320,7 +311,7 @@
 									<div class="w-100"></div>
 									<div class="col">
 										<div class="alert alert-danger" role="alert" >
-										  <span class="name">Relevant Document : </span><span class="badge badge-danger">Max : 5mb</span> <span class="badge badge-primary">Only Jpg/Jpeg</span>'.text_filebox(array('image','','false')).'
+										  <span class="name">Relevant Document : </span>'.text_filebox(array('image','','false')).'
 										</div>
 									</div>
 									<div class="col">
@@ -1022,32 +1013,6 @@
 				}
 				$comasset_desc = '<select class="form-control" id="assdesc" name="asset_desc">'.$option.'</select>';
 				
-				//---- Employee------//
-				$option=''; $comasset = COMEMPLOY;
-				$result = mysql_exe_query(array($comasset,1));
-				while($result_now = mysql_exe_fetch_array(array($result,1))){
-					if($result_now[0]==$resultnow[11]){
-						$option .= '<option value="'.$result_now[0].'" selected>'.$result_now[1].'</option>';
-						
-					}else{
-						$option .= '<option value="'.$result_now[0].'">'.$result_now[1].'</option>';
-					}
-				}
-				$comasset_dept = '<select class="form-control" id="request" name="request">'.$option.'</select>';
-				
-				//---- Query Dept Desc------//
-				$option=''; $comasset = LOCATNDEPART;
-				$result = mysql_exe_query(array($comasset,1));
-				while($result_now = mysql_exe_fetch_array(array($result,1))){
-					if($result_now[0]==$resultnow[26]){
-						$option .= '<option value="'.$result_now[0].'" selected>'.$result_now[1].'</option>';
-						
-					}else{
-						$option .= '<option value="'.$result_now[0].'">'.$result_now[1].'</option>';
-					}
-				}
-				$comasset_dept2 = '<select class="form-control" id="department" name="department">'.$option.'</select>';
-				
 				//--- Get Current Status -----//
 				$q_stat = 'SELECT WorkStatusID, WorkStatus FROM work_status WHERE WorkStatusID="'.$resultnow[15].'"';
 				$r_stat = mysql_exe_query(array($q_stat,1));
@@ -1055,7 +1020,7 @@
 				$statusid_res = $rn_stat[0]; 
 				$status_res = $rn_stat[1];
 				//--- Jika grup adalah administrator dan status adalah close maka atau grup level 1 dan level 0 dan status adalah---
-				if(($_SESSION['groupID']!="GROUP181120033150" AND $statusid_res=="WS000020") OR (($_SESSION['groupID']=="GROUP201103104941" OR $_SESSION['groupID']=="GROUP181120025602") AND ($statusid_res=="WS000010" OR $statusid_res=="WS000012" OR $statusid_res=="WS000013" OR $statusid_res=="WS000014" OR $statusid_res=="WS000019")) OR ($_SESSION['groupID']=="GROUP201103104941" AND $statusid_res=="WS000022")){
+				if(($_SESSION['groupID']!="GROUP181120033150" AND $statusid_res=="WS000020") OR (($_SESSION['groupID']=="GROUP201103104941" OR $_SESSION['groupID']=="GROUP181120025602") AND ($statusid_res=="WS000010" OR $statusid_res=="WS000012" OR $statusid_res=="WS000013" OR $statusid_res=="WS000014" OR $statusid_res=="WS000019"))){
 					$submit = '';
 				}else{
 					$submit = '<input class="form-submit" type="submit" value="Submit">';
@@ -1108,7 +1073,7 @@
 									<div class="w-100"></div>
 									<div class="col">
 										<div class="alert alert-primary" role="alert" style="margin-bottom:0px;">
-										  <span class="name">Requested By : </span>'.$comasset_dept.'
+										  <span class="name">Requested By : </span>'.combo_je(array(COMEMPLOY,'request','request','80%','',$resultnow[11])).'
 										</div>
 									</div>
 									<div class="col">
@@ -1124,7 +1089,7 @@
 									</div>
 									<div class="col">
 										<div class="alert alert-primary" role="alert" style="margin-bottom:0px;">
-										  <span class="name">Department : </span>'.$comasset_dept2.'
+										  <span class="name">Department : </span>'.combo_je(array(LOCATNDEPART,'department','department','80%','',$resultnow[26])).'
 										</div>
 									</div>
 									<div class="w-100"></div>
@@ -1194,10 +1159,8 @@
 									<div class="w-100"></div>
 									<div class="col">
 										<div class="alert alert-danger" role="alert" >
-										  <span class="name">Relevant Document : </span><span class="badge badge-danger">Max : 5mb</span> <span class="badge badge-primary">Only Jpg/Jpeg</span>'.text_filebox(array('image','','false')).'
-										 
+										  <span class="name">Relevant Document : </span>'.text_filebox(array('image','','false')).'
 										</div>
-										
 									</div>
 									<div class="col">
 										<div class="badge badge-primary">User/Prod</div></h1>
@@ -1584,23 +1547,6 @@
 							success:function(data){
 								//alert(data);
 								$('#asset').append(data);
-							}
-						})
-					})
-					
-					$('#department').on('change',function(){
-						var department = $('#department').val();
-						$('#request').empty();
-						
-						$.ajax({
-							type: 'POST',
-							url:'"._ROOT_."function/content/work_order/work_asset_department.php',
-							data:{'department':department},
-							crossDomain:true,
-							cache:false,
-							success:function(data){
-							console.log(data);
-								$('#request').append(data);
 							}
 						})
 					})

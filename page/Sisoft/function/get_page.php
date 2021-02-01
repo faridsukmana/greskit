@@ -2692,17 +2692,6 @@
 		return $content;
 	}
 	
-	echo "<script>
-	function printContent(el,titleName){
-		var restorepage = document.body.innerHTML;
-		var printcontent = document.getElementById(el).innerHTML;
-		document.body.innerHTML = printcontent;
-		document.title=titleName;
-		window.print();
-		document.body.innerHTML = restorepage;
-	}
-	</script>";
-	
 	function pop_up($data){ 
 		$content = '';
 		$definepage = $data[0];
@@ -2826,6 +2815,9 @@
 			
 			$query = WORDER.' AND  WO.WorkOrderNo="'.$_REQUEST['dataid'].'"'; $result=mysql_exe_query(array($query,1)); $result_now=mysql_exe_fetch_array(array($result,1));
 			$edquery = EDWORDER.' WHERE WO.WorkOrderNo="'.$_REQUEST['dataid'].'"'; $edresult=mysql_exe_query(array($edquery,1)); $edresult_now=mysql_exe_fetch_array(array($edresult,1));
+			$plantq = 'SELECT PlantCode FROM work_order A, asset B, plant C WHERE A.AssetID=B.AssetID AND B.PlantId=C.PlantId AND WorkOrderNo="'.$_REQUEST['dataid'].'"'; $plantqres = mysql_exe_query(array($plantq,1)); $resplantq=mysql_exe_fetch_array(array($plantqres,1));
+			$manq = 'SELECT GROUP_CONCAT(B.FirstName SEPARATOR ", ") FROM work_order_manpower A, employee B WHERE A.EmployeeID=B.EmployeeID AND A.WorkOrderNo="'.$_REQUEST['dataid'].'" GROUP BY A.WorkOrderNo'; $manqres = mysql_exe_query(array($manq,1)); $resmanq=mysql_exe_fetch_array(array($manqres,1));
+			
 			/*if(strcmp($definepage,'worder')==0){
 				$page = PATH_WORDER.'&dataid='.$_REQUEST['dataid'].'#popup-article';
 			}else if(strcmp($definepage,'pmlist')==0){
@@ -2850,13 +2842,13 @@
 				$qrform = '';
 			}
 			//------------------------------------------------------------------------------
-			$qrform .= '<button class="form-submit" onclick="printContent(\'print_me\',\''.$result_now[0].'\')">Print this page</button>';
+			$qrform .= '<button class="form-submit" onclick="printContent(\'printwo\',\''.$result_now[0].'\')">Print this page</button>';
 			$content = '	
 				<div id="popup-article" class="popup">
 				  <div class="popup__block">
 					<h1 class="popup__title">'.$result_now[0].'</h1>'.$qrform.'
 					<div id="print_me">
-					<img src="'.$result_now[21].'" class="popup__media popup__media_right" alt="No Image of WO" style="max-width:300px;max-height:300px;">
+					<img src="'.$result_now[21].'" id="myImg" onclick="myFunction()" class="popup__media popup__media_right"  alt="No Image of WO" style="max-width:300px;max-height:300px;">
 					<img src="'.$result_now[22].'" class="popup__media popup__media_right" alt="No QR Code of WO" style="max-width:300px;max-height:300px;">
 					<table class="text-popup">
 					<!--<tr height="30"><td>WO State </td><td> : </td><td><form action="'.$page.'" method="post" enctype="multipart/form-data">'.combo_je(array(COMWOSTAT,'state','state',180,'',$edresult_now[15])).' <input class="form-submit" type="submit" value="Update"></form>
@@ -2873,23 +2865,113 @@
 					<tr height="30"><td>Plan Date Start</td><td> : </td><td>'.$result_now[3].'</td>
 					<tr height="30"><td>Plan Date End</td><td> : </td><td>'.$result_now[4].'</td>
 					<tr height="30"><td>Actual Date Start</td><td> : </td><td>'.$result_now[5].'</td>
-					<tr height="30"><td>Actual Date Start</td><td> : </td><td>'.$result_now[6].'</td>
+					<tr height="30"><td>Actual Date End</td><td> : </td><td>'.$result_now[6].'</td>
 					<tr height="30"><td>Failure Code </td><td> : </td><td>'.$result_now[16].'</td>
 					<tr height="30"><td>Problem Desc </td><td> : </td><td>'.$result_now[17].'</td>
 					<tr height="30"><td>Cause Desc </td><td> : </td><td>'.$result_now[18].'</td>
-					<tr height="30"><td>Solution </td><td> : </td><td>'.$result_now[19].'</td>
+					<tr height="30"><td>Action Taken </td><td> : </td><td>'.$result_now[19].'</td>
 					<tr height="30"><td>Prevention </td><td> : </td><td>'.$result_now[20].'</td>
 					</table>
 					</div>
 					
+					<div id="printwo" style="display:none">
+						<div style="margin: 6 6 6 6; background-color:white; font-size:18px;">
+							<div class="row">
+								<div class="col" style="text-align:right">D4.3/U-204.07</div>
+							</div>
+							<div class="row">
+								<div class="col-1" style="text-align:center;"><img width="50px" src="view/images/timuraya.png"><div style="text-align:center; font-size:13px;">TIMURAYA</div></div>
+								<div class="col-11">
+									<div class="row">
+										<div class="col-12"><h3><b>'.$_REQUEST['dataid'].' – '.$result_now[15].'</b></h3></div>
+										<div class="col-12"><h4><b>Requested Date '.date('d-m-Y',strtotime($result_now[1])).'</b></h4></div>
+									</div>
+								</div>
+							</div>
+							<div class="row" style="margin-top:15px;">
+								<div class="col-2"><b>Plant</b></div><div class="col-1">:</div><div class="col-3">'.$resplantq[0].'</div>
+								<div class="col-2"><b>WO Prior.</b></div><div class="col-1">:</div><div class="col-3">'.$result_now[13].'</div>
+							</div>
+							<div class="row" style="margin-top:2px;">
+								<div class="col-2"><b>Requestor</b></div><div class="col-1">:</div><div class="col-3">'.$result_now[10].'</div>
+								<div class="col-2"><b>WO Type</b></div><div class="col-1">:</div><div class="col-3">'.$result_now[12].'</div>
+							</div>
+							<div class="row" style="margin-top:2px;">
+								<div class="col-2"><b>Asset No</b></div><div class="col-1">:</div><div class="col-9">'.$result_now[24].'</div>
+							</div>
+							<div class="row" style="margin-top:2px;">
+								<div class="col-2"><b>Asset Desc</b></div><div class="col-1">:</div><div class="col-9">'.$result_now[11].'</div>
+							</div>
+							<div class="row" style="margin-top:10px;">
+								<div class="col-2"><u><b>Problem Desc</b></u></div><div class="col-1">:</div><div class="col-9"></div>
+							</div>
+							'.$result_now[17].'
+							<br/><br/>
+							<div class="row" style="margin-top:10px;">
+								<div class="col-2"><u><b>Action Taken</b></u></div><div class="col-1">:</div><div class="col-9"></div>
+							</div>
+							<br/><br/>
+							<div class="row" >
+								<div class="col-2"><u><b>Man Power</b></u></div><div class="col-1">:</div>
+								<div class="col-9">
+								    <div class="row">
+    								<div class="col-6"></div>
+    								<div class="col-3 border" style="text-align:center;">Actual Start</div>
+    								<div class="col-3 border" style="text-align:center;">Actual Finish</div>
+    								
+    								<div class="col-6"></div>
+    								<div class="col-3 border" style="text-align:center;"><br/></div>
+    								<div class="col-3 border" style="text-align:center;"><br/></div>
+    							    </div>
+								</div>
+							</div>
+							<br/><br/>		
+							<div class="row">
+								<div class="col-6"><img src="'.$result_now[22].'" class="popup__media popup__media_right" alt="No QR Code of WO" style="max-width:300px;max-height:300px;"></div>
+								<div class="col-3" style="text-align:center;">Production,<br><br><br><br>................................</div>
+								<div class="col-3" style="text-align:center;">GL Maintenance,<br><br><br><br>................................</div>
+							</div>	
+						</div>
+					</div>
 					
 					<a href="#" class="popup__close">close</a>
 				  </div>
 				</div>
-				';
+				<!-- The Modal -->
+                    <div id="myModal" class="modal">
+                    <div class="modal-dialog-md">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                       <div class="modal-body">
+                      <img class="modal-content" id="img01" src="'.$result_now[21].'">
+                      </div>
+                      </div>
+                     </div>
+                    </div>
+                    
+					<!-- The Modal -->
+                    <div id="myModal2" class="modal">
+                    <div class="modal-dialog-md">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                       <div class="modal-body">
+                      <img class="modal-content" id="img02" src="'.$result_now[22].'">
+                      </div>
+                      </div>
+                     </div>
+                    </div>    
+                ';
 		}
 		
-		return $content;
+		return $content.print_wo();
 	}
 	
 	//======= Script JS for dashboard ==============
@@ -2900,6 +2982,33 @@
 					$('#his-calculation').DataTable();
 				</script>
 		";
+		return $content;
+	}
+	
+	function print_wo(){
+		$content = "<script>
+				$(document).ready(function(){
+					$('#printwo').hide();
+				})
+				
+				function printContent(el,titleName){
+					var restorepage = document.body.innerHTML;
+					var printcontent = document.getElementById(el).innerHTML;
+					document.body.innerHTML = printcontent;
+					document.title=titleName;
+					window.print(); 
+					location.reload();
+					//document.body.innerHTML = restorepage;
+				}
+				
+				function myFunction(){
+					$('#myModal').modal();
+        
+				}
+				 function myFunction2(){
+					$('#myModal2').modal();
+				}
+			</script>";
 		return $content;
 	}
 #########################################################################################################################################	

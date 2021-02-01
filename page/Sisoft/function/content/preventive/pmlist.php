@@ -7,7 +7,7 @@
 			$content .= '<div class="toptext" align="center">'._USER_VIEW_.'</div>';
 			$content .= '<br/><div id="example1" style="width: 1030px; height: 500px; overflow: hidden; font-size=10px;"></div>';
 			//-------set lebar kolom -------------
-			$width = "[150,200,500,400,250,150,200,200,200,200,200,200,200,80,80]";
+			$width = "[150,150,200,500,400,250,150,200,200,200,200,200,200,200,80,80]";
 			if ($_SESSION['userID'] !='') {
 			    if(isset($_REQUEST['dashpm'])){
 			        $pmquery =  WORDER.' AND WO.WorkTypeID="WT000002" AND WO.WorkStatusID NOT IN (SELECT WorkStatusID FROM work_status WHERE WorkStatusID="WS000020" OR WorkStatusID="WS000021") ORDER BY WO.WorkOrderNo DESC';
@@ -22,9 +22,9 @@
 				
 				//-------set header pada handson------
 				//==========Timuraya================
-				$sethead = "['Work_Order_No','Asset_No','Asset_Name','Problem Description','Work_Type','Section','Requested_Date','Required_Date','Plan_Date_Start','Plan_Date_End','Actual_Date_Start','Actual_Date_End','Work_Status'"._USER_EDIT_SETHEAD_._USER_CHECKLIST_SETHEAD_."]";
+				$sethead = "['Work_Order_No','Plant','Asset_No','Asset_Name','Problem Description','Work_Type','Section','Requested_Date','Required_Date','Plan_Date_Start','Plan_Date_End','Actual_Date_Start','Actual_Date_End','Work_Status'"._USER_EDIT_SETHEAD_._USER_CHECKLIST_SETHEAD_."]";
 				//-------set id pada handson----------
-				$setid = "[{data:'Work_Order_No',renderer: 'html',className: 'htLeft'},{data:'Asset_No',className: 'htLeft'},{data:'Asset_Name',className: 'htLeft'},{data:'Problem_Desc',className: 'htLeft'},{data:'Work_Type',className: 'htLeft'},{data:'Work_Trade',className: 'htLeft'},{data:'Receive_Date',className: 'htLeft'},{data:'Required_Date',className: 'htLeft'},{data:'Estimated_Date_Start',className: 'htLeft'},{data:'Estimated_Date_End',className: 'htLeft'},{data:'Actual_Date_Start',className: 'htLeft'},{data:'Actual_Date_End',className: 'htLeft'},{data:'Work_Status',renderer: 'html',className: 'htLeft'}"._USER_EDIT_SETID_._USER_CHECKLIST_SETID_."]";
+				$setid = "[{data:'Work_Order_No',renderer: 'html',className: 'htLeft'},{data:'Plant_Code',className: 'htLeft'},{data:'Asset_No',className: 'htLeft'},{data:'Asset_Name',className: 'htLeft'},{data:'Problem_Desc',className: 'htLeft'},{data:'Work_Type',className: 'htLeft'},{data:'Work_Trade',className: 'htLeft'},{data:'Receive_Date',className: 'htLeft'},{data:'Required_Date',className: 'htLeft'},{data:'Estimated_Date_Start',className: 'htLeft'},{data:'Estimated_Date_End',className: 'htLeft'},{data:'Actual_Date_Start',className: 'htLeft'},{data:'Actual_Date_End',className: 'htLeft'},{data:'Work_Status',renderer: 'html',className: 'htLeft'}"._USER_EDIT_SETID_._USER_CHECKLIST_SETID_."]";
 				//-------get data pada sql------------
 				$dt = array($pmquery,$field,array('Edit','Checklist'),array(PATH_PMLIST.EDIT,PATH_PMLIST.CHECKLIST),array(0),PATH_PMLIST);
 				$data = get_data_handson_func($dt);
@@ -45,9 +45,9 @@
 				
 				//-------set header pada handson------
 			//==========Timuraya================
-				$sethead = "['Work_Order_No','Asset_No','Asset_Name','Problem Description','Work_Type','Section','Requested_Date','Required_Date','Plan_Date_Start','Plan_Date_End','Actual_Date_Start','Actual_Date_End','Work_Status'"._USER_EDIT_SETHEAD_._USER_CHECKLIST_SETHEAD_."]";
+				$sethead = "['Work_Order_No','Plant','Asset_No','Asset_Name','Problem Description','Work_Type','Section','Requested_Date','Required_Date','Plan_Date_Start','Plan_Date_End','Actual_Date_Start','Actual_Date_End','Work_Status'"._USER_EDIT_SETHEAD_._USER_CHECKLIST_SETHEAD_."]";
 				//-------set id pada handson----------
-				$setid = "[{data:'Work_Order_No',renderer: 'html',className: 'htLeft'},{data:'Asset_No',className: 'htLeft'},{data:'Asset_Name',className: 'htLeft'},{data:'Problem_Desc',className: 'htLeft'},{data:'Work_Type',className: 'htLeft'},{data:'Work_Trade',className: 'htLeft'},{data:'Receive_Date',className: 'htLeft'},{data:'Required_Date',className: 'htLeft'},{data:'Estimated_Date_Start',className: 'htLeft'},{data:'Estimated_Date_End',className: 'htLeft'},{data:'Actual_Date_Start',className: 'htLeft'},{data:'Actual_Date_End',className: 'htLeft'},{data:'Work_Status',renderer: 'html',className: 'htLeft'}"._USER_EDIT_SETID_._USER_CHECKLIST_SETID_."]";
+				$setid = "[{data:'Work_Order_No',renderer: 'html',className: 'htLeft'},{data:'Plant_Code',className: 'htLeft'},{data:'Asset_No',className: 'htLeft'},{data:'Asset_Name',className: 'htLeft'},{data:'Problem_Desc',className: 'htLeft'},{data:'Work_Type',className: 'htLeft'},{data:'Work_Trade',className: 'htLeft'},{data:'Receive_Date',className: 'htLeft'},{data:'Required_Date',className: 'htLeft'},{data:'Estimated_Date_Start',className: 'htLeft'},{data:'Estimated_Date_End',className: 'htLeft'},{data:'Actual_Date_Start',className: 'htLeft'},{data:'Actual_Date_End',className: 'htLeft'},{data:'Work_Status',renderer: 'html',className: 'htLeft'}"._USER_EDIT_SETID_._USER_CHECKLIST_SETID_."]";
 				//-------get data pada sql------------
 				$dt = array($pmquery,$field,array('Edit','Checklist'),array(PATH_PMLIST.EDIT,PATH_PMLIST.CHECKLIST),array(0),PATH_PMLIST);
 				$data = get_data_handson_func($dt);
@@ -742,6 +742,32 @@
 				}
 				$comasset_desc = '<select class="form-control" id="assdesc" name="asset_desc">'.$option.'</select>';
 				
+				//---- Employee------//
+				$option=''; $comasset = COMEMPLOY;
+				$result = mysql_exe_query(array($comasset,1));
+				while($result_now = mysql_exe_fetch_array(array($result,1))){
+					if($result_now[0]==$resultnow[11]){
+						$option .= '<option value="'.$result_now[0].'" selected>'.$result_now[1].'</option>';
+						
+					}else{
+						$option .= '<option value="'.$result_now[0].'">'.$result_now[1].'</option>';
+					}
+				}
+				$comasset_dept = '<select class="form-control" id="request" name="request">'.$option.'</select>';
+				
+				//---- Query Dept Desc------//
+				$option=''; $comasset = LOCATNDEPART;
+				$result = mysql_exe_query(array($comasset,1));
+				while($result_now = mysql_exe_fetch_array(array($result,1))){
+					if($result_now[0]==$resultnow[26]){
+						$option .= '<option value="'.$result_now[0].'" selected>'.$result_now[1].'</option>';
+						
+					}else{
+						$option .= '<option value="'.$result_now[0].'">'.$result_now[1].'</option>';
+					}
+				}
+				$comasset_dept2 = '<select class="form-control" id="department" name="department">'.$option.'</select>';
+				
 				//--- Get Current Status -----//
 				$q_stat = 'SELECT WorkStatusID, WorkStatus FROM work_status WHERE WorkStatusID="'.$resultnow[15].'"';
 				$r_stat = mysql_exe_query(array($q_stat,1));
@@ -749,7 +775,7 @@
 				$statusid_res = $rn_stat[0]; 
 				$status_res = $rn_stat[1];
 				//--- Jika grup adalah administrator dan status adalah close maka atau grup level 1 dan level 0 dan status adalah---
-				if(($_SESSION['groupID']!="GROUP181120033150" AND $statusid_res=="WS000020") OR (($_SESSION['groupID']=="GROUP201103104941" OR $_SESSION['groupID']=="GROUP181120025602") AND ($statusid_res=="WS000010" OR $statusid_res=="WS000012" OR $statusid_res=="WS000013" OR $statusid_res=="WS000014" OR $statusid_res=="WS000019"))){
+				if(($_SESSION['groupID']!="GROUP181120033150" AND $statusid_res=="WS000020") OR (($_SESSION['groupID']=="GROUP201103104941" OR $_SESSION['groupID']=="GROUP181120025602") AND ($statusid_res=="WS000010" OR $statusid_res=="WS000012" OR $statusid_res=="WS000013" OR $statusid_res=="WS000014" OR $statusid_res=="WS000019")) OR ($_SESSION['groupID']=="GROUP201103104941" AND $statusid_res=="WS000022")){
 					$submit = '';
 				}else{
 					$submit = '<input class="form-submit" type="submit" value="Submit">';
@@ -803,7 +829,7 @@
 									<div class="w-100"></div>
 									<div class="col">
 										<div class="alert alert-primary" role="alert" style="margin-bottom:0px;">
-										  <span class="name">Requested By : </span>'.combo_je(array(COMEMPLOY,'request','request','80%','',$resultnow[11])).'
+										  <span class="name">Requested By : </span>'.$comasset_dept.'
 										</div>
 									</div>
 									<div class="col">
@@ -819,7 +845,7 @@
 									</div>
 									<div class="col">
 										<div class="alert alert-primary" role="alert" style="margin-bottom:0px;">
-										  <span class="name">Department : </span>'.combo_je(array(LOCATNDEPART,'department','department','80%','',$resultnow[26])).'
+										  <span class="name">Department : </span>'.$comasset_dept2.'
 										</div>
 									</div>
 									<div class="w-100"></div>
@@ -889,7 +915,7 @@
 									<div class="w-100"></div>
 									<div class="col">
 										<div class="alert alert-danger" role="alert" >
-										  <span class="name">Image : </span>'.text_filebox(array('image','','false')).'
+										  <span class="name">Image : </span><span class="badge badge-danger">Max : 5mb</span> <span class="badge badge-primary">Only Jpg/Jpeg</span>'.text_filebox(array('image','','false')).'
 										</div>
 									</div>
 									<div class="col">
